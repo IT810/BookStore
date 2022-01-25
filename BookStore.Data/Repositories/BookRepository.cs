@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Repositories
 {
-    class BookRepository : RepositoryBase<Book>, IBookRepository
+    public class BookRepository : RepositoryBase<Book>, IBookRepository
     {
         public BookRepository(IDbFactory dbFactory) : base(dbFactory) { }
     }

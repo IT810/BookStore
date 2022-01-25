@@ -1,4 +1,5 @@
 ﻿using BookStore.Data;
+using BookStore.Data.Repositories;
 using BookStore.Model.Models;
 using Store.Data.Infrastructure;
 using System;
@@ -9,22 +10,49 @@ using System.Threading.Tasks;
 
 namespace BookStore.Service
 {
-    public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
+    public class CategoryService : ICategoryService
     {
-        public CategoryRepository(IDbFactory dbFactory)
-            : base(dbFactory) { }
+        private readonly ICategoryRepository categorysRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public Category GetCategoryByName(string categoryName)
+        public CategoryService(ICategoryRepository categorysRepository, IUnitOfWork unitOfWork)
         {
-            var category = this.DbContext.Categories.Where(c => c.Name == categoryName).FirstOrDefault();
+            this.categorysRepository = categorysRepository;
+            this.unitOfWork = unitOfWork;
+        }
 
+        #region ICategoryService Members
+
+        public IEnumerable<Category> GetCategories(string name = null)
+        {
+            if (string.IsNullOrEmpty(name))
+                return categorysRepository.GetAll();
+            else
+                return categorysRepository.GetAll().Where(c => c.Name == name);
+        }
+
+        public Category GetCategory(int id)
+        {
+            var category = categorysRepository.GetById(id);
             return category;
         }
 
-        public override void Update(Category entity)
+        public Category GetCategory(string name)
         {
-            entity.DateUpdated = DateTime.Now;
-            base.Update(entity);
+            var category = categorysRepository.GetCategoryByName(name);
+            return category;
         }
+
+        public void CreateCategory(Category category)
+        {
+            categorysRepository.Add(category);
+        }
+
+        public void SaveCategory()
+        {
+            unitOfWork.Commit();
+        }
+
+        #endregion
     }
 }

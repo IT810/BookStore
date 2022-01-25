@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace BookStore.Service
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryService
     {
-        Category GetCategoryByName(string categoryName);
+        IEnumerable<Category> GetCategories(string name = null);
+        Category GetCategory(int id);
+        Category GetCategory(string name);
+        void CreateCategory(Category category);
+        void SaveCategory();
     }
 }

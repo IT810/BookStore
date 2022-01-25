@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data
 {
-    class StoreSeedData : DropCreateDatabaseIfModelChanges<StoreDBContext>
+    public class StoreSeedData : DropCreateDatabaseIfModelChanges<StoreDBContext>
     {
         protected override void Seed(StoreDBContext context)
         {

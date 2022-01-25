@@ -11,7 +11,7 @@ namespace BookStore.Data
 {
     public class StoreDBContext : DbContext
     {
-        public StoreDBContext() : base("StoreEntities") { }
+        public StoreDBContext() : base("StoreContextDB") { }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
