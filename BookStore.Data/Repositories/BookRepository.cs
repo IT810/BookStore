@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data.Repositories
 {
-    class BookRepository : RepositoryBase<Book>, IGadgetRepository
+    class BookRepository : RepositoryBase<Book>, IBookRepository
     {
         public BookRepository(IDbFactory dbFactory) : base(dbFactory) { }
     }
 
-    public interface IGadgetRepository : IRepository<Book>
+    public interface IBookRepository : IRepository<Book>
     {
 
     }
